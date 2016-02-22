@@ -1,7 +1,7 @@
 <?php
 /**
  * Plugin Name: WooCommerce Wizard
- * Plugin URI: null
+ * Plugin URI: http://github.com/eugene-s/WooCommerce-Wizard
  * Description: @TODO: description
  * Version: 0.5a
  * Company: InStandart
