@@ -88,14 +88,14 @@ final class WooCommerce_Wizard {
      * Cloning is forbidden.
      */
     public function __clone() {
-        _doing_it_wrong( __FUNCTION__, __( 'Cheatin&#8217; huh?', 'woocommerce_wizard' ), '0.5a' );
+        _doing_it_wrong( __FUNCTION__, __( 'Cheatin&#8217; huh?', 'woocommerce_wizard' ), '0.7a' );
     }
 
     /**
      * Unserializing instances of this class is forbidden.
      */
     public function __wakeup() {
-        _doing_it_wrong( __FUNCTION__, __( 'Cheatin&#8217; huh?', 'woocommerce_wizard' ), '0.5a' );
+        _doing_it_wrong( __FUNCTION__, __( 'Cheatin&#8217; huh?', 'woocommerce_wizard' ), '0.7a' );
     }
 
     /**
@@ -113,6 +113,43 @@ final class WooCommerce_Wizard {
      */
     public function init_hooks() {
         add_action( 'init', array( 'WCWizard_shortcodes', 'init' ) );
+        add_action( 'woocommerce_before_add_to_cart_button', array( 'WCWizard_cart_btn', 'init' ), 1 );
+
+        add_action( 'plugins_loaded', array( $this, 'init_language' ) );
+
+        // Remove EPO Action Hooks (see function 'rehook')
+        add_action( TM_Extra_Product_Options::instance()->tm_epo_options_placement, array( $this, 'rehook' ), 1 );
+        add_action( TM_Extra_Product_Options::instance()->tm_epo_totals_box_placement, array( $this, 'rehook' ), 1 );
+    }
+
+    /**
+     * Remove EPO* Action Hook, which adding fields before button 'Cart'
+     *
+     * *EPO - TM Extra Product Options
+     */
+    public function rehook() {
+        $EPO_instance = TM_Extra_Product_Options::instance(); // Get EPO instance
+        $EPO_action_options = $EPO_instance->tm_epo_options_placement; // Get EPO action hook tag of options
+        $EPO_action_totals = $EPO_instance->tm_epo_totals_box_placement; // Get EPO action hook tag of totals
+
+        // Get priority of the EPO action hooks
+        $EPO_action_options_priority = has_action( $EPO_action_options, array( $EPO_instance, 'tm_epo_fields' ) );
+        $EPO_action_totals_priority = has_action( $EPO_action_totals, array( $EPO_instance, 'tm_epo_totals' ) );
+
+        // Remove this actions
+        remove_action( $EPO_action_options, array( $EPO_instance, 'tm_epo_fields' ), $EPO_action_options_priority );
+        remove_action( $EPO_action_totals, array( $EPO_instance, 'tm_epo_totals' ), $EPO_action_totals_priority );
+
+        // Remove my handlers actions
+        remove_action( $EPO_action_options, array( $this, 'rehook' ), 1 );
+        remove_action( $EPO_action_totals, array( $this, 'rehook' ), 1 );
+    }
+
+    /**
+     * Load languages
+     */
+    public function init_language() {
+        load_plugin_textdomain('wcwizard', false, $this->plugin_dir() . '/includes/i18n/');
     }
 
     /**
@@ -145,13 +182,43 @@ final class WooCommerce_Wizard {
         if ( $this->is_request( 'frontend' ) ) {
             $this->frontend_includes();
         }
+
+        if ( $this->is_request('admin') ) {
+            include_once( 'includes/admin/class-wcwizard-admin.php' );
+        }
     }
 
     /**
      * Include required frontend files.
      */
     public function frontend_includes() {
+        include_once( 'includes/class-wcwizard-cart-btn.php' );
+        include_once( 'includes/class-wcwizard-styles.php' );
+        include_once( 'includes/class-wcwizard-scripts.php' );
         include_once( 'includes/class-wcwizard-stortcodes.php' );
+    }
+
+    /**
+     * Get the plugin url.
+     * @return string
+     */
+    public function plugin_url() {
+        return untrailingslashit( plugins_url( '/', __FILE__ ) );
+    }
+
+    /**
+     * Get the plugin path.
+     * @return string
+     */
+    public function plugin_path() {
+        return untrailingslashit( plugin_dir_path( __FILE__ ) );
+    }
+
+    /**
+     * Get name of plugin dir
+     */
+    public function plugin_dir() {
+        return plugin_basename( dirname( __FILE__ ) );
     }
 
 }
@@ -169,5 +236,4 @@ function WCWizard() {
     return WooCommerce_Wizard::instance();
 }
 
-// Global for backwards compatibility
-$GLOBALS['woocommerce_wizard'] = WCWizard();
+WCWizard();
