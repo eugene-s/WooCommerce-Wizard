@@ -43,8 +43,10 @@ class WCWizard_scripts {
 
     public function init_scripts() {
         wp_register_script( 'wcwizard_script', plugins_url('js/common.js', __FILE__), array( 'jquery' ) );
+        wp_register_script( 'wcwizard_valid_script', plugins_url('js/cancer.js', __FILE__) );
 
         wp_enqueue_script( 'wcwizard_script' );
+        wp_enqueue_script( 'wcwizard_valid_script' );
     }
 
 }

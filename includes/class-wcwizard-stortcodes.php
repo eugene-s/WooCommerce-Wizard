@@ -58,7 +58,7 @@ class WCWizard_shortcodes {
      * @return string
      */
     public static function accordion_container_shortcode( $atts, $content ) {
-        $output = "[vc_accordion]<div id=\"containerWCWizard\" />{$content}[/vc_accordion]";
+        $output = "[vc_accordion]{$content}[/vc_accordion]";
 
         $output = do_shortcode( $output );
 
@@ -107,13 +107,11 @@ class WCWizard_shortcodes {
 
         $output = '';
 
-        $output .= "[vc_accordion_tab title=\"{$shortcode_atts['title']}\"]";
-        $output .= "    [tc_epo_show action=\"{$EPO_action}\"]";
-        $output .= "[/vc_accordion_tab]";
+        $output .= "<div id=\"containerWCWizard\">[tc_epo_show action=\"{$EPO_action}\"]</div>";
 
         $output = do_shortcode( $output );
 
-        $output = str_replace($EPO_action, '', $output);
+        $output = str_replace( $EPO_action, '', $output );
 
         return $output;
     }
