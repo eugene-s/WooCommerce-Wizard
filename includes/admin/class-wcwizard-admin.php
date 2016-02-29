@@ -19,7 +19,7 @@
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
-    exit; // Exit if accessed directly
+	exit; // Exit if accessed directly
 }
 
 /**
@@ -33,48 +33,48 @@ if ( ! defined( 'ABSPATH' ) ) {
  */
 class WCWizard_admin {
 
-    /**
-     * WCWizard_admin constructor.
-     */
-    public function __construct() {
-        $this->init_hooks();
-    }
+	/**
+	 * WCWizard_admin constructor.
+	 */
+	public function __construct() {
+		$this->init_hooks();
+	}
 
-    /**
-     * Hook into actions and filters
-     */
-    public function init_hooks() {
-        add_action( 'admin_menu', array( $this, 'init_admin_menu_item' ) );
-        add_action( 'admin_init', array( $this, 'register_settings' ) );
-    }
+	/**
+	 * Hook into actions and filters
+	 */
+	public function init_hooks() {
+		add_action( 'admin_menu', array( $this, 'init_admin_menu_item' ) );
+		add_action( 'admin_init', array( $this, 'register_settings' ) );
+	}
 
-    /**
-     * Init admin menu item and attach page
-     */
-    public function init_admin_menu_item() {
-        add_menu_page(
-            'WooCommerce Wizard',               // Page title
-            'WC Wizard',                        // Name menu item
-            'manage_options',                   // Attach to
-            'woocommerce-wizard-admin-page',    // Slug name of page
-            array( 'WCWizard_admin', 'wcwizard_page' ),
-            null,
-            6
-        );
-    }
+	/**
+	 * Init admin menu item and attach page
+	 */
+	public function init_admin_menu_item() {
+		add_menu_page(
+			'WooCommerce Wizard',               // Page title
+			'WC Wizard',                        // Name menu item
+			'manage_options',                   // Attach to
+			'woocommerce-wizard-admin-page',    // Slug name of page
+			array( 'WCWizard_admin', 'wcwizard_page' ),
+			null,
+			6
+		);
+	}
 
-    /**
-     * WCWizard admin menu page
-     */
-    public static function wcwizard_page() {
-        ob_start();
+	/**
+	 * WCWizard admin menu page
+	 */
+	public static function wcwizard_page() {
+		ob_start();
 
-        include_once( 'pages/page-wcwizard-admin-main.php' );
+		include_once( 'pages/page-wcwizard-admin-main.php' );
 
-        $output = ob_get_clean();
+		$output = ob_get_clean();
 
-        echo $output;
-    }
+		echo $output;
+	}
 
 }
 

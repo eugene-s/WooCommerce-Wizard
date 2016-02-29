@@ -19,7 +19,7 @@
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
-    exit; // Exit if accessed directly
+	exit; // Exit if accessed directly
 }
 
 /**
@@ -34,14 +34,14 @@ if ( ! defined( 'ABSPATH' ) ) {
  */
 class WCWizard_styles {
 
-    /**
-     * WCWizard_scripts constructor.
-     */
-    public function __construct() {
-        wp_register_style( 'wcwizard_style', plugins_url('css/style.css', __FILE__) );
+	/**
+	 * WCWizard_scripts constructor.
+	 */
+	public function __construct() {
+		wp_register_style( 'wcwizard_style', plugins_url( 'css/style.css', __FILE__ ) );
 
-        wp_enqueue_style( 'wcwizard_style' );
-    }
+		wp_enqueue_style( 'wcwizard_style' );
+	}
 
 }
 

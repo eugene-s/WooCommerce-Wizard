@@ -1,24 +1,29 @@
 .wcwizard-button {
-    background-color: rgb(255, 255, 255);
-    border: 3px solid rgb(1, 51, 102);
-    border-radius: 10px;
+    background-color: #013366;
+    border-color: #013366;
     box-shadow: none;
-    color: rgb(1, 51, 102);
+    color: rgb(255, 255, 255);
     cursor: pointer;
     display: block;
-    font-size: 1.6em;
-    margin: 10px 10px 20px;
-    padding: 10px 35px;
+    font-size: 1.2em;
+    line-height: 1em;
+    margin: 20px 0 0;
+    padding: 10px 27px;
     position: relative;
     text-align: center;
     text-transform: uppercase;
     transition: 0.5s;
 }
 
+@media (max-width: 991px) {
+    .wcwizard-button {
+        padding: 10px 17px;
+    }
+}
+
 .wcwizard-button:hover {
-    color: rgb(248, 160, 37);
-    border-color: rgb(248, 160, 37);
-    box-shadow: 0 0 5px 0 rgb(216, 119, 35), inset 0 0 15px rgb(255, 255, 255);
+    border-color: #01264d;
+    background-color: #01264d;
 }
 
 .wcwizard-button:focus,

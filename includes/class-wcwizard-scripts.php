@@ -19,7 +19,7 @@
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
-    exit; // Exit if accessed directly
+	exit; // Exit if accessed directly
 }
 
 /**
@@ -34,20 +34,20 @@ if ( ! defined( 'ABSPATH' ) ) {
  */
 class WCWizard_scripts {
 
-    /**
-     * WCWizard_scripts constructor.
-     */
-    public function __construct() {
-        add_action( 'wp_enqueue_scripts', array( $this, 'init_scripts' ) );
-    }
+	/**
+	 * WCWizard_scripts constructor.
+	 */
+	public function __construct() {
+		add_action( 'wp_enqueue_scripts', array( $this, 'init_scripts' ) );
+	}
 
-    public function init_scripts() {
-        wp_register_script( 'wcwizard_script', plugins_url('js/common.js', __FILE__), array( 'jquery' ) );
-        wp_register_script( 'wcwizard_valid_script', plugins_url('js/cancer.js', __FILE__) );
+	public function init_scripts() {
+		wp_register_script( 'wcwizard_script', plugins_url( 'js/common.js', __FILE__ ), array( 'jquery' ) );
+		wp_register_script( 'wcwizard_valid_script', plugins_url( 'js/validation.js', __FILE__ ) );
 
-        wp_enqueue_script( 'wcwizard_script' );
-        wp_enqueue_script( 'wcwizard_valid_script' );
-    }
+		wp_enqueue_script( 'wcwizard_script' );
+		wp_enqueue_script( 'wcwizard_valid_script' );
+	}
 
 }
 

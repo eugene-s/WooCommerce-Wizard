@@ -19,7 +19,7 @@
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
-    exit; // Exit if accessed directly
+	exit; // Exit if accessed directly
 }
 
 /**
@@ -34,11 +34,11 @@ if ( ! defined( 'ABSPATH' ) ) {
  */
 class WCWizard_cart_btn {
 
-    /**
-     * Init WCWizard_cart_btn
-     */
-    public static function init() {
-        include( 'pages/page-wcwizard-cart-btn.php' );
-    }
+	/**
+	 * Init WCWizard_cart_btn
+	 */
+	public static function init() {
+		include( 'pages/page-wcwizard-cart-btn.php' );
+	}
 
 }
