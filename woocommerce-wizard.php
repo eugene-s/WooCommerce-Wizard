@@ -2,16 +2,14 @@
 /**
  * Plugin Name: WooCommerce Wizard
  * Plugin URI: http://github.com/eugene-s/WooCommerce-Wizard
- * Description: @TODO: description
+ * Description: WooCommerce Wizard plugin. It hide TM Extra Options, which showing before button 'Add to cart' and adding special validation [more read in tab of plugin 'WC Wizard']
  * Version: 0.5a
- * Company: InStandart
- * Author: eugene.savchenko
+ * Author: InStandart
  * Author URI: http://instandart.com/
  *
  * @package WooCommerce-Wizard
  * @category Core
- * @company InStandart
- * @author eugene.savchenko
+ * @author InStandart
  */
 
 /**
@@ -113,17 +111,25 @@ if ( ! class_exists( 'WooCommerce_Wizard' ) ):
 		 * Hook into actions and filters
 		 */
 		public function init_hooks() {
+			if ( $this->is_request( 'frontend' ) ) {
+				$this->init_hooks_frontend();
+			}
+		}
+
+		/**
+		 * Frontend hook into actions and filters
+		 */
+		public function init_hooks_frontend() {
 			add_action( 'init', array( 'WCWizard_shortcodes', 'init' ) );
 			add_action( 'woocommerce_after_add_to_cart_button', array( 'WCWizard_cart_btn', 'init' ) );
 
 			add_action( 'plugins_loaded', array( $this, 'init_language' ) );
 
 			// Remove EPO Action Hooks (see function 'rehook')
-			add_action( TM_Extra_Product_Options::instance()->tm_epo_options_placement, array( $this, 'rehook' ), 1 );
-			add_action( TM_Extra_Product_Options::instance()->tm_epo_totals_box_placement, array(
-				$this,
-				'rehook'
-			), 1 );
+			$EPO_instance = TM_Extra_Product_Options::instance();
+
+			add_action( $EPO_instance->tm_epo_options_placement, array( $this, 'rehook' ), 1 );
+			add_action( $EPO_instance->tm_epo_totals_box_placement, array( $this, 'rehook' ), 1 );
 		}
 
 		/**

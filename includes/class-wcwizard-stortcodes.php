@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Copyright 2016  InStandart  (email: eugene.savchenko@instandart.com)
  *
@@ -29,8 +28,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @version     0.7a
  * @package     WooCommerce-Wizard/Class
  * @category    Class
- * @company     InStandart
- * @author      eugene.savchenko
+ * @author      InStandart
  */
 class WCWizard_shortcodes {
 
@@ -116,7 +114,7 @@ class WCWizard_shortcodes {
 		woocommerce_simple_add_to_cart();
 		echo '</div>';
 
-		$output .= preg_replace( '#<button id="buttonWCWizardScrollDown"(.*?)>(.*?)</button>#', '', ob_get_clean() );
+		$output .= preg_replace( "'<button id=\"buttonWCWizardScrollDown\"[^>]*?>.*?</button>'si", ' ', ob_get_clean() );
 
 		return $output;
 	}

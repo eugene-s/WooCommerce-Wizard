@@ -31,3 +31,23 @@
 .wcwizard-button:focus:active {
     outline: none;
 }
+
+.wc-wizard-step-3-options-div {
+    visibility: hidden;
+    height: 0;
+    width: 0;
+    padding: 0;
+    margin: 0;
+    overflow: hidden;
+}
+
+.wc-wizard-step-1-option-value,
+.wc-wizard-step-2-option-hidden-value,
+.wc-wizard-step-3-wrap-option {
+    display: none;
+}
+
+span.wc-wizard-options-price {
+    font-size: 1.3em;
+    line-height: 1.6;
+}

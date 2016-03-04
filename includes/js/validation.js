@@ -19,26 +19,26 @@ function ValidationStep2($_POST) {
             //if CYL select && AXIS don't select - return err||
             if (String($data['cyl_left']).match(/\d+/) && String($data['axis_left']).match(/\d+/) ||
                 String($data['cyl_right']).match(/\d+/) && String($data['axis_right']).match(/\d+/)) {
-                return {'success': false, 'text': 'You must select AXIS'};
+                return {'valid': false, 'text': 'You must select AXIS'};
             } else {
                 if ($data['new_pd'] == 'false') {
                     if ($data['pd'] == 'none') {
-                        return {'success': false, 'text': 'Please, select a Pupillary Distance'};
+                        return {'valid': false, 'text': 'Please, select a Pupillary Distance'};
                     }
                 } else {
                     if ($data['pd'] == 'none' && $data['pd2'] == 'none') {
-                        return {'success': false, 'text': 'Please, select a Pupillary Distance'};
+                        return {'valid': false, 'text': 'Please, select a Pupillary Distance'};
                     }
                 }
                 if ($data['check'] != 'false') {
-                    return {'success': true, 'indexes_lens': validation_recipe($data)};
+                    return {'valid': true, 'indexes_lens': validation_recipe($data)};
                 }
                 else {
-                    return {'success': false, 'text': 'Please, confirm this recipe'};
+                    return {'valid': false, 'text': 'Please, confirm this recipe'};
                 }
             }
         } else {
-            return {'success': false, 'text': 'You just pick one of SPH + other  -'};
+            return {'valid': false, 'text': 'You just pick one of SPH + other  -'};
 
         }
     }
@@ -131,8 +131,6 @@ function ValidationStep2($_POST) {
         }
 
         return $result_array;
-
-
     }
 
 
@@ -156,40 +154,40 @@ function ValidationStep2($_POST) {
             $data[2] = {};
         }
 
-        $data[2]['1.5'] = 200;
-        $data[2]['1.56'] = 250;
-        $data[2]['1.61'] = 450;
-        $data[2]['1.67'] = 800;
-        $data[2]['1.74'] = 1000;
-        $data[2]['1.74M'] = 1900;
+        $data[2]['1.50'] = 2;
+        $data[2]['1.56'] = 2;
+        $data[2]['1.61'] = 2;
+        $data[2]['1.67'] = 2;
+        $data[2]['1.74'] = 2;
+        $data[2]['1.74M'] = 2;
 
         if (!$data[3]) {
             $data[3] = {};
         }
 
-        $data[3]['1.5'] = 290;
-        $data[3]['1.5M'] = 600;
-        $data[3]['1.56'] = 320;
-        $data[3]['1.56M'] = 800;
-        $data[3]['1.61'] = 600;
-        $data[3]['1.61M'] = 1200;
-        $data[3]['1.67'] = 1000;
-        $data[3]['1.67M'] = 1750;
-        $data[3]['1.74'] = 1500;
-        $data[3]['1.74M'] = 1900;
+        $data[3]['1.50'] = 3;
+        $data[3]['1.50M'] = 3;
+        $data[3]['1.56'] = 3;
+        $data[3]['1.56M'] = 3;
+        $data[3]['1.61'] = 3;
+        $data[3]['1.61M'] = 3;
+        $data[3]['1.67'] = 3;
+        $data[3]['1.67M'] = 3;
+        $data[3]['1.74'] = 3;
+        $data[3]['1.74M'] = 3;
 
         if (!$data[4]) {
             $data[4] = {};
         }
 
-        $data[4]['1.56'] = 400;
-        $data[4]['1.56M'] = 800;
-        $data[4]['1.61'] = 800;
-        $data[4]['1.61M'] = 1300;
-        $data[4]['1.67'] = 1500;
-        $data[4]['1.67M'] = 1850;
-        $data[4]['1.74'] = 1650;
-        $data[4]['1.74M'] = 2000;
+        $data[4]['1.56'] = 4;
+        $data[4]['1.56M'] = 4;
+        $data[4]['1.61'] = 4;
+        $data[4]['1.61M'] = 4;
+        $data[4]['1.67'] = 4;
+        $data[4]['1.67M'] = 4;
+        $data[4]['1.74'] = 4;
+        $data[4]['1.74M'] = 4;
 
         return $data;
     }
@@ -201,28 +199,28 @@ function ValidationStep2($_POST) {
             $data[2] = {};
         }
 
-        $data[2]['1.56'] = 800;
-        $data[2]['1.56M'] = 1200;
-        $data[2]['1.6'] = 1200;
-        $data[2]['1.6M'] = 1500;
-        $data[2]['1.67M'] = 2000;
+        $data[2]['1.56'] = 2;
+        $data[2]['1.56M'] = 2;
+        $data[2]['1.60'] = 2;
+        $data[2]['1.60M'] = 2;
+        $data[2]['1.67M'] = 2;
 
         if (!$data[3]) {
             $data[3] = {};
         }
 
-        $data[3]['1.56M'] = 1200;
-        $data[3]['1.6'] = 1500;
-        $data[3]['1.6M'] = 1500;
-        $data[3]['1.67M'] = 2000;
+        $data[3]['1.56M'] = 3;
+        $data[3]['1.60'] = 3;
+        $data[3]['1.60M'] = 3;
+        $data[3]['1.67M'] = 3;
 
         if (!$data[4]) {
             $data[4] = {};
         }
 
-        $data[4]['1.56M'] = 1500;
-        $data[4]['1.6M'] = 1800;
-        $data[4]['1.67M'] = 2300;
+        $data[4]['1.56M'] = 4;
+        $data[4]['1.60M'] = 4;
+        $data[4]['1.67M'] = 4;
 
         return $data;
     }
@@ -235,40 +233,40 @@ function ValidationStep2($_POST) {
             $data[2] = {};
         }
 
-        $data[2]['1.5'] = 300;
-        $data[2]['1.56'] = 350;
-        $data[2]['1.61'] = 450;
-        $data[2]['1.67'] = 900;
-        $data[2]['1.74'] = 1100;
-        $data[2]['1.74M'] = 2000;
+        $data[2]['1.50'] = 2;
+        $data[2]['1.56'] = 2;
+        $data[2]['1.61'] = 2;
+        $data[2]['1.67'] = 2;
+        $data[2]['1.74'] = 2;
+        $data[2]['1.74M'] = 2;
 
         if (!$data[3]) {
             $data[3] = {};
         }
 
-        $data[3]['1.5'] = 390;
-        $data[3]['1.5M'] = 700;
-        $data[3]['1.56'] = 420;
-        $data[3]['1.56M'] = 900;
-        $data[3]['1.61'] = 700;
-        $data[3]['1.61M'] = 1300;
-        $data[3]['1.67'] = 1100;
-        $data[3]['1.67M'] = 1850;
-        $data[3]['1.74'] = 1600;
-        $data[3]['1.74M'] = 2000;
+        $data[3]['1.50'] = 3;
+        $data[3]['1.50M'] = 3;
+        $data[3]['1.56'] = 3;
+        $data[3]['1.56M'] = 3;
+        $data[3]['1.61'] = 3;
+        $data[3]['1.61M'] = 3;
+        $data[3]['1.67'] = 3;
+        $data[3]['1.67M'] = 3;
+        $data[3]['1.74'] = 3;
+        $data[3]['1.74M'] = 3;
 
         if (!$data[4]) {
             $data[4] = {};
         }
 
-        $data[4]['1.56'] = 500;
-        $data[4]['1.56M'] = 900;
-        $data[4]['1.61'] = 900;
-        $data[4]['1.61M'] = 1400;
-        $data[4]['1.67'] = 1600;
-        $data[4]['1.67M'] = 1950;
-        $data[4]['1.74'] = 1750;
-        $data[4]['1.74M'] = 2100;
+        $data[4]['1.56'] = 4;
+        $data[4]['1.56M'] = 4;
+        $data[4]['1.61'] = 4;
+        $data[4]['1.61M'] = 4;
+        $data[4]['1.67'] = 4;
+        $data[4]['1.67M'] = 4;
+        $data[4]['1.74'] = 4;
+        $data[4]['1.74M'] = 4;
 
         return $data;
     }
@@ -317,7 +315,7 @@ function ValidationStep2($_POST) {
         var $data = type_1_3_index_price();
         var $index_valid = {};
         if ($sph <= 4) {
-            $index_valid['1.5'] = $data[2]['1.5'];
+            $index_valid['1.50'] = $data[2]['1.50'];
         }
         if ($sph <= 8) {
             $index_valid['1.56'] = $data[2]['1.56'];
@@ -339,7 +337,7 @@ function ValidationStep2($_POST) {
         var $data = type_1_3_index_price();
         var $index_valid = {};
         if ($sph <= 6) {
-            $index_valid['1.5'] = $data[2]['1.5'];
+            $index_valid['1.50'] = $data[2]['1.50'];
             $index_valid['1.56'] = $data[2]['1.56'];
             $index_valid['1.61'] = $data[2]['1.61'];
             if ($sph >= 1) {
@@ -372,7 +370,7 @@ function ValidationStep2($_POST) {
         var $data = type_1_3_index_price();
         var $index_valid = {};
         if ($sph <= 6) {
-            $index_valid['1.5'] = $data[3]['1.5'];
+            $index_valid['1.50'] = $data[3]['1.50'];
             $index_valid['1.56'] = $data[3]['1.56'];
         }
         if ($sph <= 8) {
@@ -398,7 +396,7 @@ function ValidationStep2($_POST) {
         var $data = type_1_3_index_price();
         var $index_valid = {};
         if ($sph <= 3) {
-            $index_valid['1.5'] = $data[3]['1.5'];
+            $index_valid['1.50'] = $data[3]['1.50'];
         }
         if ($sph <= 4) {
             $index_valid['1.56'] = $data[3]['1.56'];
@@ -509,10 +507,10 @@ function ValidationStep2($_POST) {
             $index_valid['1.56'] = $index_data[2]['1.56'];
         }
         if ($sph <= 6) {
-            $index_valid['1.6'] = $index_data[2]['1.6'];
+            $index_valid['1.60'] = $index_data[2]['1.60'];
         }
         if ($sph >= 6.25 && $sph <= 8) {
-            $index_valid['1.6M'] = $index_data[2]['1.6M'];
+            $index_valid['1.60M'] = $index_data[2]['1.60M'];
         }
         if ($sph >= 1 && $sph <= 12) {
             $index_valid['1.67M'] = $index_data[2]['1.67M'];
@@ -525,7 +523,7 @@ function ValidationStep2($_POST) {
         var $index_valid = {};
         if ($sph <= 6) {
             $index_valid['1.56M'] = $index_data[2]['1.56M'];
-            $index_valid['1.6M'] = $index_data[2]['1.6M'];
+            $index_valid['1.60M'] = $index_data[2]['1.60M'];
             if ($sph >= 1) {
                 $index_valid['1.67'] = $index_data[2]['1.67'];
             }
@@ -554,10 +552,10 @@ function ValidationStep2($_POST) {
         var $index_valid = {};
         if ($sph <= 6) {
             $index_valid['1.56M'] = $index_data[3]['1.56M'];
-            $index_valid['1.6'] = $index_data[3]['1.6'];
+            $index_valid['1.60'] = $index_data[3]['1.60'];
         }
         if ($sph >= 6.25 && $sph <= 8) {
-            $index_valid['1.6M'] = $index_data[3]['1.6M'];
+            $index_valid['1.60M'] = $index_data[3]['1.60M'];
         }
         if ($sph >= 1 && $sph <= 12) {
             $index_valid['1.67M'] = $index_data[3]['1.67M'];
@@ -570,7 +568,7 @@ function ValidationStep2($_POST) {
         var $index_valid = {};
         if ($sph <= 6) {
             $index_valid['1.56M'] = $index_data[3]['1.56M'];
-            $index_valid['1.6M'] = $index_data[3]['1.6M'];
+            $index_valid['1.60M'] = $index_data[3]['1.60M'];
             if ($sph >= 1) {
                 $index_valid['1.67M'] = $index_data[3]['1.67M'];
             }
@@ -600,7 +598,7 @@ function ValidationStep2($_POST) {
             $index_valid['1.56M'] = $index_data[4]['1.56M'];
         }
         if ($sph <= 8) {
-            $index_valid['1.6M'] = $index_data[4]['1.6M'];
+            $index_valid['1.60M'] = $index_data[4]['1.60M'];
         }
         if ($sph >= 1 && $sph <= 12) {
             $index_valid['1.67M'] = $index_data[4]['1.67M'];
@@ -613,7 +611,7 @@ function ValidationStep2($_POST) {
         var $index_valid = {};
         if ($sph <= 6) {
             $index_valid['1.56M'] = $index_data[4]['1.56M'];
-            $index_valid['1.6M'] = $index_data[4]['1.6M'];
+            $index_valid['1.60M'] = $index_data[4]['1.60M'];
             if ($sph >= 1) {
                 $index_valid['1.67M'] = $index_data[4]['1.67M'];
             }
@@ -622,6 +620,23 @@ function ValidationStep2($_POST) {
     }
 
     return {
-        valid: validation_data
+        valid: function() {
+            var validation = validation_data(),
+                result = {};
+
+            if (validation.valid) {
+
+                result['success'] = true;
+                result['data'] = validation.indexes_lens;
+
+            } else {
+
+                result['success'] = false;
+                result['text'] = validation.text;
+
+            }
+
+            return result;
+        }
     };
 }

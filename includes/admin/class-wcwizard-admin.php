@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Copyright 2016  InStandart  (email: eugene.savchenko@instandart.com)
  *
@@ -28,8 +27,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @class WCWizard_admin
  * @version 0.1a
  * @package WooCommerce-Wizard/Class
- * @company InStandart
- * @author eugene.savchenko
+ * @author InStandart
  */
 class WCWizard_admin {
 
