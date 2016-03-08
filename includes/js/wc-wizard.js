@@ -31,13 +31,43 @@
                     break;
 
             }
+
+            ApplySelectedTypeForStep4(selected_type_lens_option);
         }
 
         /**
-         * Validation Step 2
+         * Apply selected type of lens.
+         *
+         * Hiding/showing needed options in Step4
+         *
+         * @param _type_
+         */
+        function ApplySelectedTypeForStep4(_type_) {
+
+            var selectors = {
+                '1': '.wc-wizard-step-4-options-by-type-clear_lens-div',
+                '2': '.wc-wizard-step-4-options-by-type-photochromic_lens-div',
+                '3': '.wc-wizard-step-4-options-by-type-sunglasses_lens-div'
+            };
+
+            for (var selector_index in selectors) {
+                if (selectors.hasOwnProperty(selector_index)) {
+                    $(selectors[selector_index]).hide();
+                }
+            }
+
+            $(selectors[_type_]).show();
+
+        }
+
+        /**
+         * Validating Step 2
+         *
+         * @function Validation Step 2
          */
         function validateStep2() {
-            if (!$('.wc-wizard-step-2-option-confirm').is(':checked')) {
+            var $checkboxConfirmStep2 = $('.wc-wizard-step-2-option-confirm');
+            if ($checkboxConfirmStep2.length && !$checkboxConfirmStep2.is(':checked')) {
                 return {
                     'success': false,
                     'text': 'You do not confirm the recipe! You can find it in Step 2'
@@ -64,6 +94,27 @@
 
             if (selected_type_lens_option) {
                 data_to_validate.type = selected_type_lens_option;
+            } else {
+                ApplySelectedTypeForStep4(data_to_validate.type);
+            }
+
+            var not_use_validation = true;
+            for (var item in data_to_validate) {
+                if (data_to_validate.hasOwnProperty(item)) {
+                    if (!data_to_validate[item] && not_use_validation) {
+
+                        not_use_validation = true;
+
+                    } else {
+
+                        not_use_validation = false;
+
+                    }
+                }
+            }
+
+            if (not_use_validation) {
+                return true;
             }
 
             var validation_result = ValidationStep2(data_to_validate).valid(); // Run validation
@@ -71,8 +122,8 @@
             var validation_data = validation_result.data;
 
             // Hide all options in Step 3
-            $('.wc-wizard-step-3-wrap-options-div li.tmcp-field-wrap').hide();
-            $('.wc-wizard-step-3-wrap-options-div .tm-label .wc-wizard-step-3-wrap-option').each(function () {
+            $('.wc-wizard-step-3-wrap-options').parents('li.tmcp-field-wrap').hide();
+            $('.wc-wizard-step-3-wrap-option').each(function () {
                 var $this = $(this);
 
                 for (var item in validation_data) {
@@ -82,13 +133,12 @@
                         $this.parents('li.tmcp-field-wrap').show();
 
                         // Translate price from hidden options
-                        var $hidden_option_step_3 = $('.wc-wizard-step-3-options-div')
-                            .find(
-                                '.wc-wizard-step-2-option-hidden-value' +
-                                '[data-index="' + item + '"]' +
-                                '[data-cyl="' + validation_data[item] + '"]' +
-                                '[data-type="' + data_to_validate.type + '"]'
-                            );
+                        var $hidden_option_step_3 = $(
+                            '.wc-wizard-step-2-option-hidden-value' +
+                            '[data-index="' + item + '"]' +
+                            '[data-cyl="' + validation_data[item] + '"]' +
+                            '[data-type="' + data_to_validate.type + '"]'
+                        );
                         var price = $hidden_option_step_3.parents('.tmcp-field-wrap').find('span.price').text();
 
                         var $parent = $this.parent(),
@@ -120,10 +170,15 @@
         /**
          * CSS Class '.wc-wizard-on-click-go-to-step-2' create event on click
          */
-        $('.wc-wizard-on-click-go-to-step-2').on('click', function () {
+        $('.wc-wizard-on-click-go-to-step-2:not(input)').on('click touchstart', function () {
             if ($(this).find('input').is(':checked')) {
                 $('.wc-wizard-step-2').find('.tm-toggle').trigger('openwrap.tmtoggle');
             } else {
+                $('.wc-wizard-step-2').find('.tm-toggle').trigger('openwrap.tmtoggle');
+            }
+        });
+        $('input.wc-wizard-on-click-go-to-step-2').on('change', function () {
+            if ($(this).is(':checked')) {
                 $('.wc-wizard-step-2').find('.tm-toggle').trigger('openwrap.tmtoggle');
             }
         });
@@ -131,10 +186,15 @@
         /**
          * CSS Class '.wc-wizard-on-click-go-to-step-3' create event on click
          */
-        $('.wc-wizard-on-click-go-to-step-3').on('click', function () {
+        $('.wc-wizard-on-click-go-to-step-3:not(input)').on('click touchstart', function () {
             if ($(this).find('input').is(':checked')) {
                 $('.wc-wizard-step-3').find('.tm-toggle').trigger('openwrap.tmtoggle');
             } else {
+                $('.wc-wizard-step-3').find('.tm-toggle').trigger('openwrap.tmtoggle');
+            }
+        });
+        $('input.wc-wizard-on-click-go-to-step-3').on('change', function () {
+            if ($(this).is(':checked')) {
                 $('.wc-wizard-step-3').find('.tm-toggle').trigger('openwrap.tmtoggle');
             }
         });
@@ -142,10 +202,15 @@
         /**
          * CSS Class '.wc-wizard-on-click-go-to-step-4' create event on click
          */
-        $('.wc-wizard-on-click-go-to-step-4').on('click', function () {
+        $('.wc-wizard-on-click-go-to-step-4:not(input)').on('click touchstart', function () {
             if ($(this).find('input').is(':checked')) {
                 $('.wc-wizard-step-4').find('.tm-toggle').trigger('openwrap.tmtoggle');
             } else {
+                $('.wc-wizard-step-4').find('.tm-toggle').trigger('openwrap.tmtoggle');
+            }
+        });
+        $('input.wc-wizard-on-click-go-to-step-4').on('change touchstart', function () {
+            if ($(this).is(':checked')) {
                 $('.wc-wizard-step-4').find('.tm-toggle').trigger('openwrap.tmtoggle');
             }
         });
@@ -167,50 +232,66 @@
         });
 
         /**
+         * Choose needed hidden option by wrapper on click
          *
+         * Get this option from $(<this input>).data('relashionship')
+         *
+         * data 'relashionship' sets in function 'validateStep2'
          */
-        $('.wc-wizard-step-3-wrap-options-div input[type="radio"]').on('click', function () {
+        $('input[type="radio"].wc-wizard-step-3-wrap-options').on('change', function () {
             var $this = $(this);
 
             var relashionship =
                 $this.parents('.tmcp-field-wrap').find('.wc-wizard-step-3-wrap-option').data('relashionship');
 
-            relashionship.parents('.tmcp-field-wrap').find('input').trigger('click');
+            $('.wc-wizard-step-3-options').prop('checked', false);
+
+            relashionship
+                .parents('.tmcp-field-wrap')
+                .find('input')
+                .prop('checked', true).trigger('change');
         });
 
         /**
-         * Change click on submit button action
+         * Click on submit secondary button 'single add to cart'
          */
-        $('*:not([id="buttonSingleCartClone"]) > form.cart button[type="submit"]').on('click', function () {
-            if (!$('.wc-wizard-step-2').length) {
-                return;
-            }
+        $('*:not([id="buttonSingleCartClone"]) > form.cart button[type="submit"].single_add_to_cart_button')
+            .on('click touchstart', function () {
+                var $form = $(this).parents('form.cart'),
+                    $items = $('#containerWCWizard').find('[name]');
 
-            var $form = $(this).parents('form.cart'),
-                $items = $('#containerWCWizard').find('[name]');
+                var additionalFormElements = {};
 
-            var additionalFormElements = {};
+                $items.each(function () {
+                    var $this = $(this);
 
-            $items.each(function () {
-                var $this = $(this);
+                    switch ($this.attr('type')) {
+                        case 'checkbox':
+                            additionalFormElements[$this.attr('name')] = $this.prop('checked');
 
-                additionalFormElements[$this.attr('name')] = $this.val();
-            });
+                            break;
 
-            for (var field in additionalFormElements) {
-                if (additionalFormElements.hasOwnProperty(field)) {
-                    $form.append(
-                        $('<input />', {
-                            'type': 'hidden',
-                            'name': field,
-                            'value': additionalFormElements[field]
-                        })
-                    );
+                        default:
+                            additionalFormElements[$this.attr('name')] = $this.val();
+
+                            break;
+                    }
+                });
+
+                for (var field in additionalFormElements) {
+                    if (additionalFormElements.hasOwnProperty(field)) {
+                        $form.append(
+                            $('<input />', {
+                                'type': 'hidden',
+                                'name': field,
+                                'value': additionalFormElements[field]
+                            })
+                        );
+                    }
                 }
-            }
 
-            return validateStep2();
-        });
+                return validateStep2();
+            });
 
     });
 

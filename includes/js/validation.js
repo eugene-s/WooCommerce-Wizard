@@ -1,24 +1,23 @@
 function ValidationStep2($_POST) {
     function validation_data() {
-        var $data = {};
-
-        $data['sph_left'] = $_POST['sph_left'];
-        $data['sph_right'] = $_POST['sph_right'];
-        $data['cyl_left'] = $_POST['cyl_left'];
-        $data['cyl_right'] = $_POST['cyl_right'];
-        $data['axis_left'] = $_POST['axis_left'];
-        $data['axis_right'] = $_POST['axis_right'];
-        $data['pd'] = $_POST['pd'];
-        $data['new_pd'] = $_POST['new_pd'];
-        $data['check'] = $_POST['check'];
-        $data['pd2'] = $_POST['pd2'];
+        var $data = {
+            'sph_left': $_POST['sph_left'],
+            'sph_right': $_POST['sph_right'],
+            'cyl_left': $_POST['cyl_left'],
+            'cyl_right': $_POST['cyl_right'],
+            'axis_left': $_POST['axis_left'],
+            'axis_right': $_POST['axis_right'],
+            'pd': $_POST['pd'],
+            'new_pd': $_POST['new_pd'],
+            'pd2': $_POST['pd2']
+        };
 
         // check different polar SPH
         if ($data['sph_left'] <= 0 && $data['sph_right'] <= 0 ||
             $data['sph_left'] >= 0 && $data['sph_right'] >= 0) {
             //if CYL select && AXIS don't select - return err||
-            if (String($data['cyl_left']).match(/\d+/) && String($data['axis_left']).match(/\d+/) ||
-                String($data['cyl_right']).match(/\d+/) && String($data['axis_right']).match(/\d+/)) {
+            if ($data['cyl_left']  && !$data['axis_left'] ||
+                $data['cyl_right']  && !$data['axis_right']) {
                 return {'valid': false, 'text': 'You must select AXIS'};
             } else {
                 if ($data['new_pd'] == 'false') {
@@ -30,12 +29,7 @@ function ValidationStep2($_POST) {
                         return {'valid': false, 'text': 'Please, select a Pupillary Distance'};
                     }
                 }
-                if ($data['check'] != 'false') {
-                    return {'valid': true, 'indexes_lens': validation_recipe($data)};
-                }
-                else {
-                    return {'valid': false, 'text': 'Please, confirm this recipe'};
-                }
+                return {'valid': true, 'indexes_lens': validation_recipe($data)};
             }
         } else {
             return {'valid': false, 'text': 'You just pick one of SPH + other  -'};
@@ -356,7 +350,7 @@ function ValidationStep2($_POST) {
     function type_1_3_SPH_3($data) {
         var $index_valid;
         if ($data['sph'] <= 0) {
-            $index_valid = type_1_3_SPH_m3_diapasone(Math.Math.abs($data['sph']));
+            $index_valid = type_1_3_SPH_m3_diapasone(Math.abs($data['sph']));
             return $index_valid;
         } else if ($data['sph'] >= 0) {
             $index_valid = type_1_3_SPH_p3_diapasone($data['sph']);

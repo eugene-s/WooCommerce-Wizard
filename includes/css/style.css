@@ -43,7 +43,8 @@
 
 .wc-wizard-step-1-option-value,
 .wc-wizard-step-2-option-hidden-value,
-.wc-wizard-step-3-wrap-option {
+.wc-wizard-step-3-wrap-option,
+.wc-wizard-box-hidden-options {
     display: none;
 }
 
