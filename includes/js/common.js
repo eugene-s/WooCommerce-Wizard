@@ -101,7 +101,7 @@
             function toggleShowOptionsByMaxCount(_$select_, _$select_other_, _max_count_) {
                 var max_box_other = _max_count_ - _$select_.find('option:selected').text();
 
-                if (parseInt(_$select_other_.find('option:selected').text()) > max_box_other) {
+                if (parseInt(_$select_other_.find('option:selected').text()) > max_box_other && _max_count_ != -1) {
                     resetSelectedOption(_$select_other_);
                 }
 
