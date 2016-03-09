@@ -40,6 +40,8 @@
          *
          * Hiding/showing needed options in Step4
          *
+         * @function ApplySelectedTypeForStep4
+         *
          * @param _type_
          */
         function ApplySelectedTypeForStep4(_type_) {
@@ -101,15 +103,9 @@
             var not_use_validation = true;
             for (var item in data_to_validate) {
                 if (data_to_validate.hasOwnProperty(item)) {
-                    if (!data_to_validate[item] && not_use_validation) {
 
-                        not_use_validation = true;
+                    not_use_validation = !data_to_validate[item] && not_use_validation;
 
-                    } else {
-
-                        not_use_validation = false;
-
-                    }
                 }
             }
 
