@@ -1,25 +1,61 @@
 (function($) {
+    'use strict';
     $(document).on('ready', function() {
 
         /**
          * Dependence max count between type of box
          */
         (function () {
-            var $selectTypeBox = $('.wc-wizard-count-box-type'),
-                $selectCountBoxRight = $('.wc-wizard-count-box-right'),
-                $selectCountBoxLeft = $('.wc-wizard-count-box-left'),
-                $inputQuantity = $('form.cart').find('.qty'),
-                max_count = -1,
-                fixed_count = false;
+            /**
+             * @name $selectTypeBox
+             *
+             * @type {jQuery}
+             */
+            var $selectTypeBox = $('.wc-wizard-count-box-type');
+
+            /**
+             * @name $selectCountBoxRight
+             *
+             * @type {jQuery}
+             */
+            var $selectCountBoxRight = $('.wc-wizard-count-box-right');
+
+            /**
+             * @name $selectCountBoxLeft
+             *
+             * @type {jQuery}
+             */
+            var $selectCountBoxLeft = $('.wc-wizard-count-box-left');
+
+            /**
+             * @name $inputQuantity
+             *
+             * @type {jQuery}
+             */
+            var $inputQuantity = $('form.cart').find('.qty');
+
+            /**
+             * @name max_count
+             *
+             * @type {int}
+             */
+            var max_count = -1;
+
+            /**
+             * @name fixed_count
+             *
+             * @type {boolean}
+             */
+            var fixed_count = false;
 
             /**
              * $getSelectedOptionByElement
              *
              * @function $getSelectedOptionByElement
              *
-             * @param _$element_
+             * @param {jQuery} _$element_
              *
-             * @return jQuery Object
+             * @return {jQuery}
              */
             function $getSelectedOptionByElement(_$element_) {
                 var $result = $();
@@ -54,9 +90,9 @@
              *
              * @function $getSelectedOptionByElement
              *
-             * @param _$element_ jQuery Object
+             * @param {jQuery} _$element_
              *
-             * @return jQuery Object
+             * @return {jQuery}
              */
             function $getOptionsByElement(_$element_) {
                 var $result = $();
@@ -89,10 +125,10 @@
              *
              * @function getInitDataFromElement
              *
-             * @param _$element_ jQuery Object
-             * @param _data_name_ string
+             * @param {jQuery} _$element_
+             * @param {string} _data_name_
              *
-             * @return string|integer
+             * @return {string|int}
              */
             function getInitDataFromElement(_$element_, _data_name_) {
                 var attr_tm_tooltip_html;
@@ -105,7 +141,7 @@
                                 _$element_
                                     .parents('.tmcp-field-wrap')
                                     .find('.tm-tooltip')
-                                    .data('tm-tooltip-html')
+                                    .data('tm-tooltip-html');
                         }
 
                         break;
@@ -128,8 +164,8 @@
              *
              * @function setSelectedOption
              *
-             * @param _$select_
-             * @param _value_
+             * @param {jQuery} _$select_
+             * @param {int|string} _value_
              */
             function setSelectedOption(_$select_, _value_) {
                 if (!_value_) {
@@ -139,7 +175,7 @@
                 var value_option = _$select_
                     .find('option')
                     .filter(function () {
-                        return $(this).html() == _value_
+                        return $(this).html() === _value_;
                     })
                     .val(); // Get value of option by text
 
@@ -152,14 +188,14 @@
              *
              * @function toggleShowOptionsByMaxCount
              *
-             * @param _$select_ jQuery Object
-             * @param _$select_other_ jQuery Object
-             * @param _max_count_ jQuery Object
+             * @param {jQuery} _$select_
+             * @param {jQuery} _$select_other_
+             * @param {jQuery} _max_count_
              */
             function toggleShowOptionsByMaxCount(_$select_, _$select_other_, _max_count_) {
                 var max_box_other = _max_count_ - parseInt(_$select_.find('option:selected').text());
 
-                if (parseInt(_$select_other_.find('option:selected').text()) > max_box_other && _max_count_ != -1) {
+                if (parseInt(_$select_other_.find('option:selected').text()) > max_box_other && _max_count_ !== -1) {
                     setSelectedOption(_$select_other_);
                 }
 
@@ -198,10 +234,10 @@
              *
              * @function changeOtherCountBoxByFixCount
              *
-             * @param _$select_ jQuery Object
-             * @param _$select_other_ jQuery Object
-             * @param _max_count_ integer
-             * @param _fixed_count_ boolean
+             * @param {jQuery} _$select_
+             * @param {jQuery} _$select_other_
+             * @param {int} _max_count_
+             * @param {boolean} _fixed_count_
              */
             function changeOtherCountBoxByFixCount(_$select_, _$select_other_, _max_count_, _fixed_count_) {
                 if (_fixed_count_) {
@@ -221,7 +257,6 @@
                 $inputQuantity.parents('.quantity.buttons_added').hide();
 
                 // Transferring data with max-count from helper to data object of jQuery
-
                 $getOptionsByElement($selectTypeBox).each(function () {
                     var $this = $(this);
 
