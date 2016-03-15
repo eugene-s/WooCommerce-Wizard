@@ -252,7 +252,7 @@
          * Click on submit secondary button 'single add to cart'
          */
         $('*:not([id="buttonSingleCartClone"]) > form.cart button[type="submit"].single_add_to_cart_button')
-            .on('click touchstart', function () {
+            .on('click touchstart', function (event) {
                 var $form = $(this).parents('form.cart'),
                     $items = $('#containerWCWizard').find('[name]');
 
@@ -267,6 +267,14 @@
 
                             break;
 
+                        case 'radio':
+                            additionalFormElements[$this.attr('name')] = {
+                                'value': $this.val(),
+                                'value_checked': $this.prop('checked')
+                            };
+
+                            break;
+
                         default:
                             additionalFormElements[$this.attr('name')] = $this.val();
 
@@ -276,13 +284,28 @@
 
                 for (var field in additionalFormElements) {
                     if (additionalFormElements.hasOwnProperty(field)) {
-                        $form.append(
-                            $('<input />', {
-                                'type': 'hidden',
-                                'name': field,
-                                'value': additionalFormElements[field]
-                            })
-                        );
+                        if (additionalFormElements[field] !== 'object') {
+
+                            $form.append(
+                                $('<input />', {
+                                    'type': 'hidden',
+                                    'name': field,
+                                    'value': additionalFormElements[field]
+                                })
+                            );
+
+                        } else {
+
+                            $form.append(
+                                $('<input />', {
+                                    'type': 'hidden',
+                                    'name': field,
+                                    'value': additionalFormElements[field]['value'],
+                                    'checked': additionalFormElements[field]['value_checked']
+                                })
+                            );
+
+                        }
                     }
                 }
 
