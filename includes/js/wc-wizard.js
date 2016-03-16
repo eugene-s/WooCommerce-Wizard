@@ -252,7 +252,7 @@
          * Click on submit secondary button 'single add to cart'
          */
         $('*:not([id="buttonSingleCartClone"]) > form.cart button[type="submit"].single_add_to_cart_button')
-            .on('click touchstart', function (event) {
+            .on('click touchstart', function () {
                 var $form = $(this).parents('form.cart'),
                     $items = $('#containerWCWizard').find('[name]');
 
